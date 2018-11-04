@@ -36,9 +36,9 @@ class AuthorController extends Controller
       public function store(Request $request){
 
           $rules =[
-            'name' => 'required|max:255',
-            'gender' => 'required|max:255|in:male,female',
-            'country' => 'required|max:255',
+            'name' => 'required|max:200',
+            'gender' => 'required|max:6|in:male,female',
+            'country' => 'required|max:100',
           ];
           $this->validate($request, $rules);
 
@@ -60,9 +60,22 @@ class AuthorController extends Controller
       /**
      * Actualizar autores
      */
-      public function update(Request $request, $author){
-
-      }
+       public function update(Request $request, $author)
+    {
+        $rules = [
+            'name' => 'max:255',
+            'gender' => 'max:255|in:male,female',
+            'country' => 'max:255',
+        ];
+        $this->validate($request, $rules);
+        $author = Author::findOrFail($author);
+        $author->fill($request->all());
+        if ($author->isClean()) {
+            return $this->errorResponse('Debe existir un cambio para proceder en la ejecución', Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        $author->save();
+        return $this->successResponse($author);
+    }
     /**
      * Elimina autores
      */
