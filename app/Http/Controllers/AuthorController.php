@@ -51,6 +51,11 @@ class AuthorController extends Controller
      */
       public function show($author){
 
+        $author = Author::findOrFail($author);//Si no encuentra, retorna una excepción model find excepcion
+
+        return $this->successResponse($author);
+
+
       }
       /**
      * Actualizar autores
