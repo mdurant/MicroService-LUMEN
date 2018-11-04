@@ -23,9 +23,9 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+$app->withFacades();    //ayudan a trabajar con Helper y/o funciones globales para el proyecto
 
-// $app->withEloquent();
+$app->withEloquent();   // modelos
 
 /*
 |--------------------------------------------------------------------------
