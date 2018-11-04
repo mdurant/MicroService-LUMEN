@@ -74,6 +74,7 @@ class Handler extends ExceptionHandler
       }
       //controlar el error para no ver en PROD
       if(env('APP_DEBUG', false)){
+        
         return parent::render($request, $exception);
       }
       //Error 500
